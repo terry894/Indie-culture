@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ 
+<mapper namespace="org.hello.mapper.BoardMapper">
+ 
+ 
+    <!-- 게시판 추가하기 -->
+    <insert id="insertBoard" parameterType="org.hello.domain.BoardVO"  useGeneratedKeys="true" keyProperty="b_no">
+        insert into hello_board (b_title,b_writer,b_detail,b_date,b_category) values(#{b_title},#{b_writer},#{b_detail},SYSDATE(),#{b_category})
+ 
+    </insert>
+    
+    <!-- 게시판 리스트보기 -->
+    
+    <select id="listBoard" resultType="org.hello.domain.BoardVO">
+    <![CDATA[
+    
+        select * from hello_board 
+        order by b_no DESC
+       
+
+    ]]>
+    </select>
+    
+    
+    
+        <select id="UserBoard" resultType="org.hello.domain.BoardVO">
+    <![CDATA[
+    
+        select * from hello_board  where b_writer = #{b_writer}
+
+    ]]>
+    </select>
+    
+    <select id="bnoBoard" resultType="org.hello.domain.BoardVO">
+    <![CDATA[
+    
+        select b_no from hello_board 
+        order by b_no DESC
+       
+
+    ]]>
+    </select>
+   
+      <!-- 좋아요 순 리스트보기 -->
+    
+    <select id="likeboard" resultType="org.hello.domain.BoardVO">
+    <![CDATA[
+    
+        select * from hello_board 
+        order by b_likecnt DESC
+       
+
+    ]]>
+    </select> 
+    
+     <!-- 조회순 리스트보기 -->
+    
+    <select id="seeBoard" resultType="org.hello.domain.BoardVO">
+    <![CDATA[
+    
+        select * from hello_board 
+        order by b_count DESC
+       
+
+    ]]>
+    </select>
+    
+    
+    
+    
+    <select id="listBoard2" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+        select * from hello_board 
+        order by b_no DESC, b_date DESC
+      limit #{pageStart}, #{perPageNum}
+
+
+    ]]>
+    </select>
+    
+    <!--  게시글 개수구하기 -->
+    <select id="countBoardList" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        
+    ]]>
+</select>
+
+  
+    <!--  music게시글 개수구하기 -->
+    <select id="countBoardListMusic" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =1
+    ]]>
+</select>
+
+     <!-- movie 게시글 개수구하기 -->
+    <select id="countBoardListMovie" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =2
+    ]]>
+</select>
+
+ <!-- act 게시글 개수구하기 -->
+    <select id="countBoardListAct" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =3
+    ]]>
+</select>
+    
+    <!-- Game 게시글 개수구하기 -->
+    <select id="countBoardListGame" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =4
+    ]]>
+</select>
+
+ <!-- 자유 게시글 개수구하기 -->
+    <select id="countBoardListCommunity" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =5
+    ]]>
+</select>
+
+ <!-- 대관 게시글 개수구하기 -->
+    <select id="countBoardListRent" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =6
+    ]]>
+</select>
+
+<!-- 공연 게시글 개수구하기 -->
+    <select id="countBoardListPerform" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =7
+    ]]>
+</select>
+    
+    <!-- 이벤트 게시글 개수구하기 -->
+    <select id="countBoardListEvent" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =8
+    ]]>
+</select>
+    <!-- 공지 게시글 개수구하기 -->
+    <select id="countBoardListNotice" resultType="Integer">
+    <![CDATA[
+        SELECT
+            count(*)
+        FROM
+            hello_board
+        where b_category =9
+    ]]>
+</select>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <!-- music게시판 리스트보기 -->
+    <select id="MusicBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+        select * from hello_board 
+        where b_category=1  order by b_no DESC
+          limit #{pageStart}, #{perPageNum}
+    ]]>
+    </select>
+    
+    
+      <!-- movie게시판 리스트보기 -->
+    <select id="MovieBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=2  order by b_no DESC
+        limit #{pageStart}, #{perPageNum}
+    ]]>
+    </select>
+    
+    
+       <!-- Act게시판 리스트보기 -->
+    <select id="ActBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=3  order by b_no DESC
+        limit #{pageStart}, #{perPageNum}
+    ]]>
+    </select>
+    
+       <!-- Game게시판 리스트보기 -->
+    <select id="GameBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=4  order by b_no DESC
+         limit #{pageStart}, #{perPageNum}
+    ]]>
+    </select>
+    
+    
+       <!-- 자유게시판 리스트보기 -->
+    <select id="FreeBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=5  order by b_no DESC
+        limit #{pageStart}, #{perPageNum}
+    ]]>
+    </select>
+    
+    
+       <!-- 대관게시판 리스트보기 -->
+    <select id="RentBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=6  order by b_no DESC
+        limit #{pageStart}, #{perPageNum}
+    ]]>
+    </select>
+    
+    
+       <!-- 공연게시판 리스트보기 -->
+    <select id="PerformBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=7  order by b_no DESC
+         limit #{pageStart}, #{perPageNum}
+    ]]>
+    </select>
+    
+    
+     <!-- 이벤트게시판 리스트보기 -->
+    <select id="EventBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=8  order by b_no DESC
+         limit #{pageStart}, #{perPageNum}
+         
+    ]]>
+    </select>
+    
+     <!-- 공지게시판 리스트보기 -->
+    <select id="NoticeBoard" resultType="hashmap" parameterType="hashmap">
+    <![CDATA[
+    
+         select * from hello_board 
+        where b_category=9  order by b_no DESC
+         limit #{pageStart}, #{perPageNum}
+        
+    ]]>
+    </select>
+    
+    
+    
+ 
+    
+    
+    
+    <!-- 게시판 상세보기 -->
+    <select id="boardView" parameterType="int" resultType="org.hello.domain.BoardVO">
+            select * from hello_board  where b_no =#{b_no}
+    </select>
+ 
+    <!-- 게시판 삭제하기 -->
+    <delete id="deleteBoard" parameterType="int">
+        delete from hello_board where b_no =#{b_no}
+    </delete>
+    
+    <!-- 게시판 수정하기 -->
+    <update id="updateBoard">
+        update hello_board set b_title=#{b_title} , b_detail = #{b_detail} where b_no = #{b_no}
+    </update>
+    
+    <!-- 조회수 -->
+  <update id="hitPlus" parameterType="int">
+        update hello_board set b_count = b_count+1 where b_no = #{b_no}
+    </update>
+
+ <!-- 좋아요 + -->
+  <update id="Likeplus" parameterType="int">
+        update hello_board set b_likecnt = b_likecnt+1 where b_no = #{b_no}
+    </update>
+    
+    <!-- 좋아요 - -->
+  <update id="Likeminus" parameterType="int">
+        update hello_board set b_likecnt = b_likecnt-1 where b_no = #{b_no}
+    </update>
+    
+
+<insert id="fileInsert" parameterType="org.hello.domain.FileVO">
+
+       INSERT INTO FILES (fno,b_no,filename,fileOriName,fileurl) VALUES (#{fno},#{b_no},#{filename},#{fileOriName},#{fileUrl})
+</insert>
+
+<!-- 사진 상세보기 -->
+  <select id="fileDetail" parameterType="int" resultType="org.hello.domain.FileVO">
+    SELECT
+        *
+    FROM Files
+    WHERE
+        b_no = #{b_no}
+</select>
+
+<!-- 첨부파일 삭제하기 -->
+    <delete id="fileDelete" parameterType="int">
+        delete from files where b_no =#{b_no}
+    </delete>
+    
+   
+<insert id="fileInsert2" parameterType="org.hello.domain.File2VO">
+
+       INSERT INTO FILE2 (fno,b_no,filename,fileOriName,fileurl) VALUES (#{fno},#{b_no},#{filename},#{fileOriName},#{fileurl})
+</insert>
+
+<!-- 사진 상세보기 -->
+  <select id="fileDetail2" parameterType="int" resultType="org.hello.domain.File2VO">
+    SELECT
+        *
+    FROM File2
+    WHERE
+        b_no = #{b_no}
+</select>
+
+<!-- 첨부파일 삭제하기 -->
+    <delete id="fileDelete2" parameterType="int">
+        delete from file2 where b_no =#{b_no}
+    </delete>
+
+
+
+</mapper>
+

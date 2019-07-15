@@ -1,0 +1,20 @@
+body {
+  padding-top: 54px;
+   
+}
+
+
+.cfol-lg-3{
+    width :200px;
+}
+.carousel-inner{
+    width : 1500px;
+}
+
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+    
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="org.hello.mapper.userMapper">
+
+    <insert id="insertUser">
+        insert into user (a_name,a_nick,a_id,a_pw,a_email,a_address,a_birth,a_phone) values(#{a_name},#{a_nick},#{a_id},#{a_pw},
+        #{a_email},#{a_address},#{a_birth},#{a_phone})
+    </insert>
+
+<!-- 
+
+        login에 대한 DB 작업을 정의한다. id와 pw가 일치하면 사용자 정보를 담고 있는 객체를 반환한다.
+
+     -->
+
+    <select id="login"  resultType="org.hello.domain.UserVO">
+
+        select * from user where a_id = #{a_id} and a_pw = #{a_pw}
+
+    </select>
+
+<select id="UserInfo"  resultType="org.hello.domain.UserVO">
+
+        select * from user where a_id = #{login.a_id}
+
+    </select>
+    
+    
+    <select id="OtherInfo"  resultType="org.hello.domain.UserVO">
+
+        select * from user 
+
+    </select>
+    
+    
+    <!-- 회원정보 수정하기 -->
+    <update id="updateUser">
+        update user set a_nick=#{a_nick} , a_name = #{a_name} , a_pw = #{a_pw}  , a_email = #{a_email}
+        , a_address = #{a_address}  , a_birth = #{a_birth}  , a_phone = #{a_phone} 
+       where a_id = #{a_id}
+    </update>
+    
+    
+    
+    <!-- 회원 삭제하기 -->
+    <delete id="deleteUser" parameterType="String">
+        delete from user where a_id =#{a_id}
+    </delete>
+    
+    
+      <!--사용자 리스트보기 -->
+    <select id="UserBoard" resultType="org.hello.domain.UserVO">
+    <![CDATA[
+    
+        select * from user 
+        order by a_name DESC
+    ]]>
+    </select>
+    
+    
+    
+    
+    
+    
+    
+</mapper>
